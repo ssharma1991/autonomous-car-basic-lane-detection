@@ -1,56 +1,41 @@
 # **Finding Lane Lines on the Road** 
-[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
-<img src="examples/laneLines_thirdPass.jpg" width="480" alt="Combined Image" />
+When humans drive on the road, we rely heavily on lane line markings to steer our vehicles. The objective of this project is impart this ability of identifing lane lines to a computer. 
 
-Overview
----
-
-When we drive, we use our eyes to decide where to go.  The lines on the road that show us where the lanes are act as our constant reference for where to steer the vehicle.  Naturally, one of the first things we would like to do in developing a self-driving car is to automatically detect lane lines using an algorithm.
-
-In this project you will detect lane lines in images using Python and OpenCV.  OpenCV means "Open-Source Computer Vision", which is a package that has many useful tools for analyzing images.  
-
-To complete the project, two files will be submitted: a file containing project code and a file containing a brief write up explaining your solution. We have included template files to be used both for the [code](https://github.com/udacity/CarND-LaneLines-P1/blob/master/P1.ipynb) and the [writeup](https://github.com/udacity/CarND-LaneLines-P1/blob/master/writeup_template.md).The code file is called P1.ipynb and the writeup template is writeup_template.md 
-
-To meet specifications in the project, take a look at the requirements in the [project rubric](https://review.udacity.com/#!/rubrics/322/view)
+Images and video files from a dashcam mounted in a car is used as input. Jupyter notebook, Python and OpenCV is used to detect and visualize the lane lines in input. The anaconda environment being used is available as the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md).
 
 
-Creating a Great Writeup
----
-For this project, a great writeup should provide a detailed response to the "Reflection" section of the [project rubric](https://review.udacity.com/#!/rubrics/322/view). There are three parts to the reflection:
+## Image Processing Pipeline:
 
-1. Describe the pipeline
+To find the lane lines on a road, a pipeline consisting of computer vision techniques is implemented in following sequence:
+1. **Input:** An Input image is received by the pipeline. It can be scaled down to improve algorithm speed.
+2. **Grayscaling:** First operation is the grayscaling operation. The operation reduces the color channels from three to one. This improves algorithm speed. 
+3. **Blurring:** Then, a gaussian blur is applied to decrease noise. A `kernel_size= 5x5` was emperically determined for this project.
+4. **Edge Detection:** Next, Canny edge detection is used to isolate prominent edges in the image. A `low_threshold=50` and `high_threshold=150` for pixel intensity were emperically determined for this project. The result is a binary image. 
+5. **Region Masking:** The relavant part of the image which contain lane information is then isolated using a polygon mask. This eliminates the extraneous edges from the images.
+6. **Hough Transform:** To convert pixel data into raw line segment data, Hough transform is used. The hyper-papameters are emperically determined. Resolution parameters are `rho=2px` and `theta=2 degrees`. Minimum intersection threshold was set as `threshold=40`. The line parameters were set as `min_length=30px` and `max_gap=20px`.
+7. **Slope Thresholding:** Raw line segment data is classified into left and right lanes depending on slope values. Line segments whose slopes satisfy `-.25 <slope <.25` are not considered since these lines don't represent lane lines.
+8. **Line Averaging:** Raw lane lines are aggregated into unique lane line hence completing the lane detection process. Aggregation is done using average of slopes and midpoints of raw line segments.
+9. **Final Bisualization:** The detected lane lines are superimposed with initial dashcam image for visualization and analysisng errors.
 
-2. Identify any shortcomings
+The figure below displays each step in the pipeline.
 
-3. Suggest possible improvements
-
-We encourage using images in your writeup to demonstrate how your pipeline works.  
-
-All that said, please be concise!  We're not looking for you to write a book here: just a brief description.
-
-You're not required to use markdown for your writeup.  If you use another method please just submit a pdf of your writeup. Here is a link to a [writeup template file](https://github.com/udacity/CarND-LaneLines-P1/blob/master/writeup_template.md). 
+<img src="test_images_output/solidWhiteCurve_detail.jpg" width="900" title="Image Processing Pipeline"/>
 
 
-The Project
----
 
-## If you have already installed the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) you should be good to go!   If not, you should install the starter kit to get started on this project. ##
 
-**Step 1:** Set up the [CarND Term1 Starter Kit](https://classroom.udacity.com/nanodegrees/nd013/parts/fbf77062-5703-404e-b60c-95b78b2f3f9e/modules/83ec35ee-1e02-48a5-bdb7-d244bd47c2dc/lessons/8c82408b-a217-4d09-b81d-1bda4c6380ef/concepts/4f1870e0-3849-43e4-b670-12e6f2d4b7a7) if you haven't already.
+## Limitations
+A huge hurdle in generalizing this approach is the selection of optimum Image Processing hyper-parameters. Since these parameters were determined emperically using very limited dataset (single car, one highway, daytime, sunny, etc.), the algorithm works poorly if used in other situations. Sample situations where above described approach could work poorly are:
+* Changes in road material from darker asphalt to concrete (like on bridges or overpasses).
+* Shadows on the road from nearby objects (like trees or buildings).
+* Debris/dirt in lanes, especially near dash lines. 
+* Change in weather conditions (like rainy or snowy).
+* Varied lighting at different times in a day or night.
 
-**Step 2:** Open the code in a Jupyter Notebook
 
-You will complete the project code in a Jupyter notebook.  If you are unfamiliar with Jupyter Notebooks, check out <A HREF="https://www.packtpub.com/books/content/basics-jupyter-notebook-and-python" target="_blank">Cyrille Rossant's Basics of Jupyter Notebook and Python</A> to get started.
+## Possible Improvements
 
-Jupyter is an Ipython notebook where you can run blocks of code and see results interactively.  All the code for this project is contained in a Jupyter notebook. To start Jupyter in your browser, use terminal to navigate to your project directory and then run the following command at the terminal prompt (be sure you've activated your Python 3 carnd-term1 environment as described in the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) installation instructions!):
-
-`> jupyter notebook`
-
-A browser window will appear showing the contents of the current directory.  Click on the file called "P1.ipynb".  Another browser window will appear displaying the notebook.  Follow the instructions in the notebook to complete the project.  
-
-**Step 3:** Complete the project and submit both the Ipython notebook and the project writeup
-
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
-
+* One possible improvement could be using data from previous timestep to calculate lane readings. It is obvious that drastic changes in lane location is impossible within negligible time and smoothening the changes would benefit the pipeline.
+* Use of lane colors to isolate the lanes could also be better than using a grayscale image. However, that would require more computation power.
+* Use of curves instead of straight lines could be used to better represent the lane lines
