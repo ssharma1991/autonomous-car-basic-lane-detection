@@ -7,7 +7,7 @@ When humans drive on the road, we rely heavily on lane line-markings to steer ou
 Images and video files from a dashcam mounted in a car is used as input. Jupyter notebook, Python and OpenCV are used to detect and visualize the lane lines in the input. The anaconda environment being used is available as the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md).
 
 
-## Image Processing Pipeline:
+## Image Processing Pipeline
 
 To find the lane lines on a road, a pipeline consisting of computer vision techniques is implemented in the following sequence:
 1. **Input:** An Input image is received by the pipeline. It can be scaled down to improve algorithm speed.
@@ -25,6 +25,28 @@ The image below displays each step in the pipeline.
 <img src="test_images_output/solidWhiteCurve_detail.jpg" width="900" title="Image Processing Pipeline"/>
 
 
+## Execution time analysis
+
+In this section, we analyze the time taken by each step by our algorithm. The execution time has been estimated using `timeit` module. It repeatedly runs a function and determines the mean and deviation of run-time. The execution time of each step in the above algorithm is
+
+|Process                 |Execution Time (ms)|
+|------------------------|-------------------|
+|Importing Image         |17.7               |
+|Resizing Image          |0.8                |
+|Grayscaling             |0.3                |
+|Blurring                |0.3                |
+|Edge detection          |1.3                |
+|Region Masking          |0.1                |
+|Hough Transform         |1.3                |
+|Slope Thresholding      |2.6                |
+|Line Averaging          |0.6                |
+|Final Image creation    |1.3                |
+|Detail Image creation   |14.4               |
+
+
+As can be observed by the table, processing one image takes a total of **40.7ms**. However, almost **80%** of execution time is taken by the first and last step. Thus, for an efficient real-time video-processing pipeline, the focus needs to be on improving the steps of importing and visualizing data.
+
+Assuming a camera can capture video at 60 frames per second(fps), the time between each frame will be **16ms**. The execution time of the image processing pipeline has to be lesser than 16ms for our algorithm to process such a video. Excluding the importing and visualization steps, our pipeline takes **8.6ms** which satisfies this criterion. 
 
 
 ## Limitations
