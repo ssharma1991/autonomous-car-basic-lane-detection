@@ -4,7 +4,7 @@ When humans drive on the road, we rely heavily on lane line-markings to steer ou
 
 <img src="test_images_output/solidWhiteCurve.jpg" width="720" title="Image Processing Pipeline"/>
 
-Images and video files from a dashcam mounted in a car is used as input. Jupyter notebook, Python and OpenCV are used to detect and visualize the lane lines in the input. The anaconda environment being used is available as the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md).
+Images and video files from a dashcam mounted in a car is used as input. Jupyter notebook, Python and OpenCV are used to detect and visualize the lane lines in the input. The anaconda environment being used is available as the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) (if you run any errors, update the packages).
 
 
 ## Image Processing Pipeline
