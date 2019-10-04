@@ -74,7 +74,7 @@ In my benchmarks, I observed that the camera pipeline works close to **15 fps** 
 
 <img src="other_images/test_RealTime_video.gif" width="720" title="Camera Pipeline Testing"/>
 
-Next, I develop a fixture to prop my tablet to my car's windscreen. I use SnappyXO parts to create the fixture design. The complete setup with the tablet looks something like this.
+Next, I develop a fixture to prop my tablet to my car's windscreen. I use [SnappyXO](http://snappyxo.com/) parts, a laser-cut robotics platform built by my research group, to create the fixture design. The complete setup with the tablet looks something like this.
 
 <img src="other_images/SnappyXO.jpg" width="720" title="Fixture design using SnappyXO"/>
 
