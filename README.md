@@ -7,7 +7,7 @@ When humans drive on the road, we rely heavily on lane line-markings to steer ou
 Images and video files from a dashcam mounted in a car is used as input. Jupyter notebook, Python and OpenCV are used to detect and visualize the lane lines in the input. The anaconda environment being used is available as the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) (if you run any errors, update the packages).
 
 
-## Image Processing Pipeline
+## Image Processing Pipeline ([link](http://htmlpreview.github.io/?https://github.com/ssharma1991/autonomous-car-basic-lane-detection/blob/master/ImagePipeline.html))
 
 To find the lane lines on a road, a pipeline consisting of computer vision techniques is implemented in the following sequence:
 1. **Input:** An Input image is received by the pipeline. It can be scaled down to improve algorithm speed.
@@ -49,7 +49,7 @@ As can be observed by the table, processing one image takes a total of **33.1ms*
 Assuming a camera can capture video at 60 frames per second(fps), the time between each frame will be **16ms**. The execution time of the image processing pipeline has to be lesser than 16ms for our algorithm to process such a video. Excluding the importing and visualization steps, our pipeline takes **7.3ms** which satisfies this criterion. criterion. 
 
 
-## Video Processing Pipeline
+## Video Processing Pipeline ([link](http://htmlpreview.github.io/?https://github.com/ssharma1991/autonomous-car-basic-lane-detection/blob/master/VideoPipeline.html))
 
 First, we implement a video pipeline that works with pre-recorded videos.
 
@@ -60,7 +60,7 @@ The result can be seen in the video below.
 
 Since the processing is done on prerecorded data and not real-time in nature, the efficiency is not as important.
 
-## Camera Processing Pipeline
+## Camera Processing Pipeline ([link](http://htmlpreview.github.io/?https://github.com/ssharma1991/autonomous-car-basic-lane-detection/blob/master/CameraPipeline.html))
 
 Next, we aim to develop a camera pipeline that processes live video streams. Due to the real-time nature of live-stream, efficiency is important.
 
