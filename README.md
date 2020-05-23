@@ -100,3 +100,6 @@ A huge hurdle in generalizing this approach is the selection of optimum Image Pr
 
 * Use of lane colors to isolate the lanes could also be better than using a grayscale image. However, that would require more computation power.
 * Use of curves instead of straight lines could be used to better represent the lane lines
+
+## References
+This project is submitted as partial fulfillment of the Udacity's Self-Driving Car Engineer Nanodegree program. The helper code is available [here](https://github.com/udacity/CarND-LaneLines-P1).
